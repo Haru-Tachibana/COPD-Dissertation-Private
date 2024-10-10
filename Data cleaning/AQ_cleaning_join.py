@@ -35,9 +35,10 @@ aq18.rename(columns={
     'Days PM2.5': 'PM2.5_18', 
     'Days PM10': 'PM10_18'
 }, inplace=True)
-aq18.drop(columns=['State', 'Year'], inplace=True)
+aq18['State_County_Year'] = aq18['State'] + aq18['County'] + aq18['Year'].astype(str)
 aq18.dropna(axis=1, inplace=True)
 aq18.dropna(axis=0, inplace=True)
+aq18.drop(columns=['State', 'County', 'Year'], inplace=True)
 print(aq18.columns.to_list())
 print(aq18.head())
 aq18.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/aq18.csv", index=False)
@@ -60,9 +61,10 @@ aq19.rename(columns={
     'Days PM2.5': 'PM2.5_19', 
     'Days PM10': 'PM10_19'
 }, inplace=True)
-aq19.drop(columns=['State', 'Year'], inplace=True)
+aq19['State_County_Year'] = aq19['State'] + aq19['County'] + aq19['Year'].astype(str)
 aq19.dropna(axis=1, inplace=True)
 aq19.dropna(axis=0, inplace=True)
+aq19.drop(columns=['State', 'County', 'Year'], inplace=True)
 print(aq19.columns.to_list())
 print(aq19.head())
 aq19.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/aq19.csv", index=False)
@@ -85,9 +87,10 @@ aq20.rename(columns={
     'Days PM2.5': 'PM2.5_20', 
     'Days PM10': 'PM10_20'
 }, inplace=True)
-aq20.drop(columns=['State', 'Year'], inplace=True)
+aq20['State_County_Year'] = aq20['State'] + aq20['County'] + aq20['Year'].astype(str)
 aq20.dropna(axis=1, inplace=True)
 aq20.dropna(axis=0, inplace=True)
+aq20.drop(columns=['State', 'County', 'Year'], inplace=True)
 print(aq20.columns.to_list())
 print(aq20.head())
 aq20.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/aq20.csv", index=False)
@@ -110,15 +113,16 @@ aq21.rename(columns={
     'Days PM2.5': 'PM2.5_21', 
     'Days PM10': 'PM10_21'
 }, inplace=True)
-aq21.drop(columns=['State', 'Year'], inplace=True)
+aq21['State_County_Year'] = aq21['State'] + aq21['County'] + aq21['Year'].astype(str)
 aq21.dropna(axis=1, inplace=True)
 aq21.dropna(axis=0, inplace=True)
+aq21.drop(columns=['State', 'County', 'Year'], inplace=True)
 print(aq21.columns.to_list())
 print(aq21.head())
 aq21.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/aq21.csv", index=False)
 
-aq1819 = pd.merge(aq18, aq19, how='left', on=['County'])
-print(aq1819.head())
+#aq1819 = pd.merge(aq18, aq19, how='left', on=['State_County_Year'])
+#print(aq1819.head())
 #aq1819.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/aq1819.csv", index=False)
 
 #print(aq_joint_1821.head())
