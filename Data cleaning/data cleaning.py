@@ -1,29 +1,28 @@
-import pyspark
-from pyspark.sql import functions as F
-from pyspark.sql import Window
-from pyspark.sql.functions import collect_list, concat_ws, udf ,lit, col, when, split, size, lower, explode
-from pyspark.sql.types import *
-from pyspark.sql import SparkSession, Row	
-from pyspark.sql.types import MapType, StringType, StructType,StructField
-from pyspark.sql.functions import sum as spark_sum
-
-from pathlib import Path
-import re
-import string
-
 import pandas as pd
-import os
 import numpy as np
-
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
-from collections import Counter
-from textwrap import wrap
 
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, when, lit
-from pyspark.sql.types import DateType
-from datetime import datetime, timedelta
+copd_age = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/COPD data(csv)/AGE-ADJUSTED_PREVALENCE_COPD.csv")
+copd_crude = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/COPD data(csv)/CRUDE_PREVALENCE_COPD.csv")
+
+aq18 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/AQ_18-24_county/annual_aqi_by_county_2018.csv")
+aq19 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/AQ_18-24_county/annual_aqi_by_county_2019.csv")
+aq20 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/AQ_18-24_county/annual_aqi_by_county_2020.csv")
+aq21 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/AQ_18-24_county/annual_aqi_by_county_2021.csv")
+aq22 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/AQ_18-24_county/annual_aqi_by_county_2022.csv")
+aq23 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/AQ_18-24_county/annual_aqi_by_county_2023.csv")
+aq24 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/AQ_18-24_county/annual_aqi_by_county_2024.csv")
+
+annual_median_income_1820 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/DEMOGRAPHICS & SOCIOECONOMICS/SOCIOECONOMIC ANNUAL MEDIAN HOUSEHOLD INCOME .csv")
+
+smoke_age_1821 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/lifestyle risk factors/SMOKING_AGE-ADJUSTED_PREVALENCE.csv")
+smoke_crude = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/lifestyle risk factors/SMOKING_CRUDE_PREVALENCE.csv")
+
+no_phyact_1821_age = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/lifestyle risk factors/NO_PHYSICAL_ACTIVITY_AGE-ADJUSTED.csv")
+no_phyact_1821_crude = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/lifestyle risk factors/NO_PHYSICAL_ACTIVITYAGE_Crude.csv")
+
+aq18.head()
+
 
 
