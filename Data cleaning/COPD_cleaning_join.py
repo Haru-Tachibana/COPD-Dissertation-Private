@@ -41,11 +41,15 @@ copd_crude.rename(columns={
     'Confidence Interval High': 'CI_high_copd_crude',
     'Confidence Interval Low': 'CI_low_copd_crude',
 }, inplace=True)
-copd_crude.drop(columns=['StateFIPS', 'State', 'Data Comment', '95% Confidence Interval'], inplace=True)
+copd_crude.drop(columns=['StateFIPS', 'State', 'CountyFIPS', 'Data Comment', '95% Confidence Interval'], inplace=True)
 copd_crude.dropna(axis=1, inplace=True)
 copd_crude.dropna(axis=0, inplace=True)
 
 print(copd_age.columns.to_list())
 print(copd_crude.columns.to_list())
+
+copd_join = pd.merge(copd_age, copd_crude, how='inner', on=['County', 'Year'])
+print(copd_join.columns.to_list())
+copd_join.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_join.csv", index=False)
 #copd_joint = pd.merge(copd_age, copd_crude, how='inner', on=['County', 'Year'])
 #copd_joint.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_joint.csv", index=False)
