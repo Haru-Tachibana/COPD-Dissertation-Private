@@ -1,3 +1,4 @@
+#%%
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -22,7 +23,5 @@ smoke_crude = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/
 no_phyact_1821_age = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/lifestyle risk factors/NO_PHYSICAL_ACTIVITY_AGE-ADJUSTED.csv")
 no_phyact_1821_crude = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/lifestyle risk factors/NO_PHYSICAL_ACTIVITYAGE_Crude.csv")
 
-aq18.head()
-
-
-
+copd_joint = pd.merge(copd_age, copd_crude, how='inner', on=['County', 'Year'])
+copd_joint.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New-CSV-Files/copd_joint.csv", index=False)
