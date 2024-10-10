@@ -35,6 +35,8 @@ copd_age.rename(columns={
 copd_age.drop(columns=['Data Comment', '95% Confidence Interval'], inplace=True)
 copd_age.dropna(axis=1, inplace=True)
 copd_age.dropna(axis=0, inplace=True)
+copd_age['County_Year'] = copd_age['County'] + copd_age['Year'].astype(str)
+
 
 copd_crude.rename(columns={
     'Value': 'copd%_crude',
@@ -44,12 +46,17 @@ copd_crude.rename(columns={
 copd_crude.drop(columns=['StateFIPS', 'State', 'CountyFIPS', 'Data Comment', '95% Confidence Interval'], inplace=True)
 copd_crude.dropna(axis=1, inplace=True)
 copd_crude.dropna(axis=0, inplace=True)
+copd_crude['County_Year'] = copd_crude['County'] + copd_crude['Year'].astype(str)
 
 print(copd_age.columns.to_list())
 print(copd_crude.columns.to_list())
 
-copd_join = pd.merge(copd_age, copd_crude, how='inner', on=['County', 'Year'])
-print(copd_join.columns.to_list())
-copd_join.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_join.csv", index=False)
-#copd_joint = pd.merge(copd_age, copd_crude, how='inner', on=['County', 'Year'])
-#copd_joint.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_joint.csv", index=False)
+copd_joint = pd.merge(copd_age, copd_crude, how='left', on=['County_Year'])
+
+copd_joint.rename(columns={
+    'Year_x': 'Year',
+    'County_x': 'County'
+})
+copd_joint.drop(columns=['County_y', 'Year_y'], inplace=True)
+print(copd_joint.columns.to_list())
+copd_joint.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_joint.csv", index=False)
