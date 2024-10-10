@@ -56,7 +56,7 @@ copd_joint = pd.merge(copd_age, copd_crude, how='left', on=['County_Year'])
 copd_joint.rename(columns={
     'Year_x': 'Year',
     'County_x': 'County'
-})
+}, inplace=True)
 copd_joint.drop(columns=['County_y', 'Year_y'], inplace=True)
 print(copd_joint.columns.to_list())
 copd_joint.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_joint.csv", index=False)
