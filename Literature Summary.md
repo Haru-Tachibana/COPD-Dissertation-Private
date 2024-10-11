@@ -23,7 +23,7 @@
    - **Summary**: This paper presents the development of the Healthcare Access and Quality (HAQ) Index, which quantifies access to and quality of healthcare systems worldwide. Though the paper is global in scope, the methodology and findings offer insight into how healthcare access and quality can be linked to preventable chronic conditions like COPD. This will be relevant when discussing how healthcare access affects COPD management in South Dakota.
 
 ### 5. **"COPD and healthcare service utilisation during the COVID-19 pandemic: A nationwide study"**
-   - **Link**: <https://thorax.bmj.com/content/76/9/939.abstract>
+   - **Link**: https://thorax.bmj.com/content/76/9/939.abstract
    - **Cite**: Huh, K., Kim, Y.E., Ji, W., Kim, D.W., Lee, E.J., Kim, J.H., Kang, J.M. and Jung, J., (2021). Decrease in hospital admissions for respiratory diseases during the COVID-19 pandemic: a nationwide claims study. Thorax, 76(9), pp.939-941.
    - **Summary**: This paper studies how the COVID-19 pandemic affected healthcare service utilization by COPD patients. It highlights how access to routine care and COPD management was interrupted, leading to increased exacerbations and poor outcomes. This study will directly support the argument about the impact of the pandemic on healthcare access for COPD patients in rural South Dakota.
 
