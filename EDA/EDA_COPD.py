@@ -43,3 +43,5 @@ print(worst_state)
 sorted_state_trends = state_trend_data.sort_values(by='age_adjusted_trend', ascending=False)
 print("\nAll states ranked by worsening trend (Age-Adjusted):")
 print(sorted_state_trends)
+
+sorted_state_trends.to_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/COPD_trend_by_state.csv', index=False)
