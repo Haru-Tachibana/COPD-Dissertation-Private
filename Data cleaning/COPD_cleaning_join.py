@@ -57,5 +57,15 @@ copd_joint.rename(columns={
     'County_x': 'County'
 }, inplace=True)
 copd_joint.drop(columns=['State_y', 'County_y', 'Year_y'], inplace=True)
+
+copd_joint['State_County_Year'] = copd_joint['State_County_Year'].str.lower()
+copd_joint['State_County_Year'] = copd_joint['State_County_Year'].str.strip()
+
+def remove_space(x):
+    return(''.join(x.split()))
+
+copd_joint['State_County_Year'] = copd_joint['State_County_Year'].astype(str).apply(lambda x: remove_space(x))
+
+
 print(copd_joint.columns.to_list())
 copd_joint.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_joint.csv", index=False)
