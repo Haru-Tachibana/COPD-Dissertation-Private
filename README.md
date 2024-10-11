@@ -1,14 +1,18 @@
-# Research Objectives
+# Content Description
+## Datasets - original datasets downloaded from official websites
+- Air quality data (2018-2024): Pre-generated data from EPA (United States Environmental Protection Agency).<https://aqs.epa.gov/aqsweb/airdata/download_files.html>
+- Fine resolution AQ data: Air Quality System (AQS) API <https://aqs.epa.gov/aqsweb/documents/data_api.html>
+- COPD data: National Environmental Public Health Tracking Network <https://ephtracking.cdc.gov/DataExplorer/>
+- Demographic data: Census data from the Office for National Statistics. <https://www.ons.gov.uk/census>
 
-## Examine Healthcare Access:
-Assess the availability and accessibility of healthcare resources in South Dakota's rural counties and their impact on COPD management during the COVID-19 pandemic.
-## Analyse Air Quality: 
-Investigate the correlation between air quality indices (e.g., PM2.5, ozone levels) and COPD prevalence rates in South Dakota from 2018 to 2021.
-## Assess Spatial Variation: 
-Map the spatial distribution of COPD prevalence across South Dakota counties over the study period to identify areas of concern and potential hotspots.
-## Evaluate Trends: 
-Analyse the trends in COPD prevalence and air quality data over time, focusing on the worsening trends observed in South Dakota.
-## Public Health Implications: 
-Provide insights into how limited healthcare access and local air quality contribute to COPD rates, informing public health policies and strategies for prevention and management.
-## Integrate Machine Learning: 
-Employ machine learning techniques to predict COPD prevalence based on air quality and healthcare access data, enhancing the understanding of these relationships.
+## New CSV - all data files (csv) generated from original datasets
+- Note seperate AQ data is not being used at this stage.
+
+## Data cleaning - Python code files for data cleaning & pre-processing
+- Ignore AQ_cleaning_join copy.py and AQ_remane.py files. (wrong methods)
+
+## EDA -  Python code files for exploratory data analysis
+- EDA_COPD.py: national level ranking of COPD prevalence and annual trends.
+- SouthDakota.py: State level.
+
+## Figures - visualisation which can be used in dissertation
