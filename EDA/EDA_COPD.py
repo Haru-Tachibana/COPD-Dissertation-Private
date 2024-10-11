@@ -44,4 +44,33 @@ sorted_state_trends = state_trend_data.sort_values(by='age_adjusted_trend', asce
 print("\nAll states ranked by worsening trend (Age-Adjusted):")
 print(sorted_state_trends)
 
+def calculate_trend(group):
+    group = group.sort_values('Year')
+    
+    if len(group['Year'].unique()) > 1:  # Check if there are multiple years to calculate the trend
+        age_adjusted_slope = np.polyfit(group['Year'], group['copd%_age'], 1)[0]
+        crude_slope = np.polyfit(group['Year'], group['copd%_crude'], 1)[0]
+    else:
+        age_adjusted_slope = 0
+        crude_slope = 0
+    
+    return pd.Series({
+        'age_adjusted_trend': age_adjusted_slope,
+        'crude_trend': crude_slope,
+        'latest_age_adjusted': group['copd%_age'].iloc[-1],
+        'latest_crude': group['copd%_crude'].iloc[-1]
+    })
+
+county_trend_data = copd_data.groupby(['State', 'County']).apply(calculate_trend).reset_index()
+
+county_trend_data['rank'] = county_trend_data['latest_age_adjusted'].rank(ascending=False) + \
+                            county_trend_data['age_adjusted_trend'].rank(ascending=False)
+
+ranked_counties = county_trend_data.sort_values(by='rank').reset_index(drop=True)
+
+ranked_counties_display = ranked_counties[['State', 'County', 'latest_age_adjusted', 'age_adjusted_trend']]
+print("Counties ranked by highest COPD% and worsening trend:")
+print(ranked_counties_display)
+
+ranked_counties.to_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/COPD_trend_by_county.csv', index=False)
 sorted_state_trends.to_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/COPD_trend_by_state.csv', index=False)
