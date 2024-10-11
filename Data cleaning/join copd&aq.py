@@ -8,6 +8,9 @@ import os
 copd = pd.read_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_joint.csv')
 aq = pd.read_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/airqualitydata_18to21.csv')
 
+print(copd.count())
+print(aq.count())
+
 print(copd.columns.to_list())
 print(aq.columns.to_list())
 

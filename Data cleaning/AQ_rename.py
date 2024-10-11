@@ -17,6 +17,12 @@ aq22 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Dataset
 aq23 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/AQ_18-24_county/annual_aqi_by_county_2023.csv")
 aq24 = pd.read_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/AQ_18-24_county/annual_aqi_by_county_2024.csv")
 
+print(aq18.count())
+print(aq19.count())
+print(aq20.count())
+print(aq21.count())
+
+
 #18-19-20-21
 aq18.rename(columns={
     'Days with AQI': 'AQI_records_18',
