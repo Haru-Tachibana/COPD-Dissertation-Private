@@ -6,14 +6,10 @@ import seaborn as sns
 import os
 
 copd = pd.read_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_joint.csv')
-aq18 = pd.read_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/aq18.csv')
-aq19 = pd.read_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/aq19.csv')
-aq20 = pd.read_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/aq20.csv')
-aq21 = pd.read_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/aq21.csv')
-
+aq = pd.read_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/airqualitydata_18to21.csv')
 
 print(copd.columns.to_list())
-print(aq18.columns.to_list())
+print(aq.columns.to_list())
 
-
-#copd_aq.to_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_aq.csv', index=False)
+copd_aq = pd.merge(copd, aq, how='left', on=['State_County_Year'])
+copd_aq.to_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_aq.csv', index=False)
