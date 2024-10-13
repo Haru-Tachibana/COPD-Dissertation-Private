@@ -29,4 +29,11 @@ annual_median_income_1820['State_County_Year'] = annual_median_income_1820['Stat
 
 
 SD_income = annual_median_income_1820[annual_median_income_1820["StateFIPS"] == 46]
+
 print(SD_income.head())
+
+income_ind = SD_income.drop(columns=['StateFIPS', 'State', 'County', 'Year'])
+print(income_ind.head())
+
+SD_income.to_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Data cleaning/SD_income.csv', index=False)
+income_ind.to_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Data cleaning/income_ind.csv', index=False)
