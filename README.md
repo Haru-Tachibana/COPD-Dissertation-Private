@@ -18,3 +18,5 @@
 ## Figures - visualisation which can be used in dissertation
 
 ## Literature Summary - List of papers
+
+## fetchData.js --> didn't work as expected, need further investigation. One niticed issue: missing data from API source (i.e., not every single county in the state have AQ data per qtr)
