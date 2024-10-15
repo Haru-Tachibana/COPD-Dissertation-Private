@@ -47,6 +47,12 @@ print(copd_income.head())
 print(copd_income.columns.to_list())
 
 copd_income_SD = copd_income[copd_income["StateFIPS"] == 46]
+copd_income_SD['Year'].astype(int)
 
 #2021 income data missing
 copd_income_SD.to_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_income_SD.csv', index=False)
+print(copd_income_SD.columns.to_list())
+
+copd_income_1820 = copd_income_SD.query('Year != 2021')
+copd_income_1820.to_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_income_1820.csv', index=False)
+
