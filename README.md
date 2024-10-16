@@ -4,6 +4,7 @@
 - Fine resolution AQ data: Air Quality System (AQS) API <https://aqs.epa.gov/aqsweb/documents/data_api.html>
 - COPD data: National Environmental Public Health Tracking Network <https://ephtracking.cdc.gov/DataExplorer/>
 - Demographic data: Census data from the Office for National Statistics. <https://www.ons.gov.uk/census>
+- the StateFIPS for South Dakota is 46.
 
 ## New CSV - all data files (csv) generated from original datasets
 - Note seperate AQ data is not being used at this stage.
