@@ -9,6 +9,9 @@
 ## New CSV - all data files (csv) generated from original datasets
 - Note seperate AQ data is not being used at this stage.
 
+## Fetch Data - all data fetched as JSON (originally) using API (saved as CSV files)
+- check counties_data.csv for all 66 counties' name and code in South Dakota.
+
 ## Data cleaning - Python code files for data cleaning & pre-processing
 - Ignore AQ_cleaning_join copy.py and AQ_remane.py files. (wrong methods)
 
