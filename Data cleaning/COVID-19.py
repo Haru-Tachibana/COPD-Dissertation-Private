@@ -1,12 +1,10 @@
-import pandas as pd
+import pandas as pd 
+# Fetch COVID-19 dataset directly from NYT GitHub repository
+url = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+covid_data = pd.read_csv(url)
 
-# Load COPD prevalence data from a local file or URL
-url = "https://www.cdc.gov/brfss/data_documentation/index.htm"  # Replace with exact dataset URL
-local_file = "/path/to/copd_data.csv"  # Replace with your local file path
-copd_data = pd.read_csv(local_file)  # Or use url instead of local_file
-
-# Preview data
-print(copd_data.head())
+# Filter for West Virginia
+covid_wv = covid_data[covid_data['state'] == "West Virginia"]
 
 # Save processed data
-copd_data.to_csv("processed_copd_data.csv", index=False)
+covid_wv.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/data_new/covid_wv_data.csv", index=False)
