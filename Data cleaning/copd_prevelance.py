@@ -1,11 +1,11 @@
 import pandas as pd
 
-# Load COPD prevalence data from a local file
-local_file = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/data_new/copd_data.csv"
-copd_data = pd.read_csv(local_file)
+local_file = '/Users/yangyangxiayule/Documents/GitHub/COPD-Project/New CSV/copd_joint.csv'
+full_copd_data = pd.read_csv(local_file)
+
+copd = full_copd_data.loc[full_copd_data['StateFIPS'] == 54]
 
 # Preview data
-print(copd_data.head())
+print(copd.head())
 
-# Save processed data
-copd_data.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/data_new/processed_copd_data.csv", index=False)
+copd.to_csv("/Users/yangyangxiayule/Documents/GitHub/COPD-Project/Datasets/copd_wv.csv", index=False)
