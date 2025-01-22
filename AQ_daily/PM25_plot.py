@@ -7,6 +7,9 @@ import os
 file_path = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/AQ_daily"
 
 # Read the data
+PM258 = pd.read_csv(file_path + '/PM25_2018.csv')
+PM259 = pd.read_csv(file_path + '/PM25_2019.csv')
+PM250 = pd.read_csv(file_path + '/PM25_2020.csv')
 PM251 = pd.read_csv(file_path + '/PM25_2021.csv')
 PM252 = pd.read_csv(file_path + '/PM25_2022.csv')
 PM253 = pd.read_csv(file_path + '/PM25_2023.csv')
@@ -101,8 +104,8 @@ def print_county_statistics(df, year):
         print(f"  Maximum concentration: {max_conc:.3f} ug/m3")
 
 # Process all dataframes
-dataframes = [PM251, PM252, PM253, PM254]
-years = [2021, 2022, 2023, 2024]
+dataframes = [PM258, PM259, PM250, PM251, PM252, PM253, PM254]
+years = [2018, 2019, 2020, 2021, 2022, 2023, 2024]
 
 for df in dataframes:
     process_dataframe(df)
