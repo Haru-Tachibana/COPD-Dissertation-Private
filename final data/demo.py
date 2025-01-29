@@ -39,3 +39,11 @@ output_path = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/final data"
 
 # Save the final data to a CSV file
 final_data.to_csv(output_path + '/demographic_data.csv', index=False)
+
+
+data_2018_2021 = final_data[final_data['Year'].isin([2018, 2019, 2020, 2021])]
+data_2022_2024 = final_data[final_data['Year'].isin([2022, 2023, 2024])]
+
+# Save them to new CSV files
+data_2018_2021.to_csv(output_path + "/demo_data_2018_2021.csv", index=False)
+data_2022_2024.to_csv(output_path + "/demo_data_2022_2024.csv", index=False)
