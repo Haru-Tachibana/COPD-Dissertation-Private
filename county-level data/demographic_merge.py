@@ -1,47 +1,59 @@
-import os
 import pandas as pd
 import glob
+import re
+import os
 
-
-def load_county_level_data(folder_path):
-    # List all CSV files in the folder
-    csv_files = glob.glob(os.path.join(folder_path, "*.csv"))
+def merge_csv_files(directory):
+    # Initialize an empty list to store individual dataframes
+    dfs = []
     
-    # Combine all data_name files
-    county_level_list = []
-    for file in csv_files:
-        # Extract the filename
-        file_name = os.path.basename(file)
+    # Process each CSV file in the specified directory
+    for file in glob.glob(os.path.join(directory, "*.csv")):
+        # Read the CSV file
+        df = pd.read_csv(file)
         
-        # Check if the filename contains a valid year (e.g., 4-digit number)
-        try:
-            data_name = file_name.split("_")[0]  # Extract data_name type (e.g., CO, PM10)
-            year = int(file_name.split("_")[1].split(".")[0])  # Extract year
-            
-            # Load data
-            df = pd.read_csv(file)
-            df['Demographic'] = data_name
-            df['Year'] = year
-            county_level_list.append(df)
-        except (IndexError, ValueError):
-            print(f"Skipping invalid file: {file_name}")
-            continue  # Skip files that do not match the expected naming convention
+        # Extract the filename without the full path
+        filename = os.path.basename(file)
+        
+        # Get the metric type (healthcare, income, smoking) and year from filename
+        metric = filename.split('_')[0]
+        year = re.findall(r'\d{4}', filename)[0]
+        
+        # Keep only County and County Value columns
+        value_col = [col for col in df.columns if 'Value' in col][0]
+        df = df[['County', value_col]].copy()
+        
+        # Rename the value column to include metric and year
+        df.columns = ['County', f'{metric}_{year}']
+        
+        # Clean the value column (remove $, %, :, etc.)
+        df[f'{metric}_{year}'] = df[f'{metric}_{year}'].replace({
+            r'[$,%:]': '',
+            r' to.*': ''  # Remove ranges like "25-28%"
+        }, regex=True)
+        
+        # Convert to numeric, invalid values will become NaN
+        df[f'{metric}_{year}'] = pd.to_numeric(df[f'{metric}_{year}'], errors='coerce')
+        
+        dfs.append(df)
     
-    # Combine all into a single DataFrame
-    county_level_data = pd.concat(county_level_list, ignore_index=True)
-    return county_level_data
+    # Merge all dataframes on County column
+    if dfs:
+        merged_df = dfs[0]
+        for df in dfs[1:]:
+            merged_df = merged_df.merge(df, on='County', how='outer')
+        
+        # Save the merged data
+        output_file = os.path.join(directory, 'merged_wv_counties.csv')
+        merged_df.to_csv(output_file, index=False)
+        print(f"Data has been merged and saved to '{output_file}'")
+        
+        return merged_df
+    else:
+        print("No CSV files found in the specified directory.")
+        return None
 
-# Path to air quality data
-county_level_folder = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/demographic data"
-
-# Load the data
-county_level_data = load_county_level_data(county_level_folder)
-
-# Display the first few rows of the combined DataFrame
-print("Combined Demographic Data:")
-print(county_level_data.head())
-
-# Save the combined DataFrame as a single CSV file
-output_path = os.path.join(county_level_folder, "combined_county_level.csv")
-county_level_data.to_csv(output_path, index=False)
-print(f"Combined air quality data saved to: {output_path}")
+# Run the merger
+if __name__ == "__main__":
+    directory_path = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/demographic data"
+    merged_data = merge_csv_files(directory_path)
