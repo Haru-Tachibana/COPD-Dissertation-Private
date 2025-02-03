@@ -1,0 +1,5 @@
+,income,healthcare,smoking,copd%_age
+income,1.0,-0.1,-0.316,-0.785
+healthcare,-0.1,1.0,0.21,0.259
+smoking,-0.316,0.21,1.0,0.431
+copd%_age,-0.785,0.259,0.431,1.0

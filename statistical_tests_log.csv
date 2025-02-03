@@ -1,0 +1,4 @@
+Variable,Correlation,P-value
+log_income,-0.819,0.0
+log_healthcare,0.32,0.0
+log_smoking,0.437,0.0

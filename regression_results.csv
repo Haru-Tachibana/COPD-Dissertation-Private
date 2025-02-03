@@ -1,0 +1,4 @@
+Variable,Slope (a),Intercept (b),R²,Correlation,P-value
+Log Income,-7.174,86.974,0.67,-0.819,1.8500907417019358e-54
+Log Healthcare Access,0.819,2.347,0.102,0.32,1.3011196232660453e-06
+Smoking Rate,0.224,5.208,0.186,0.431,2.2594955631039343e-11
