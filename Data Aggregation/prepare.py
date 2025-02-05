@@ -18,3 +18,4 @@ demographic_df_long = demographic_df.melt(id_vars=["County"],
 
 # Extract year from the column names (e.g., 'income_2018' -> 2018)
 demographic_df_long["Year"] = demographic_df_long["Year"].str.extract(r'(\d{4})').astype(int)
+
