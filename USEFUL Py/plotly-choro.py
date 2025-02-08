@@ -14,8 +14,8 @@ copd_df = pd.read_csv(copd_data_path)
 
 
 # Step 3: Clean the 'predicted_copd_age' column by removing '%' and converting to float
-#copd_df['predicted_copd_age'] = copd_df['predicted_copd_age'].replace('%', '', regex=True).astype(float)
-
+copd_df['copd%_age'] = copd_df['copd%_age'].replace('%', '', regex=True).astype(float)
+copd_df.to_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/final data/copd_data.csv')
 # Step 4: Merge the GeoDataFrame with the COPD data on county names
 merged_gdf = gdf.merge(copd_df, left_on="name", right_on="County", how="left")
 

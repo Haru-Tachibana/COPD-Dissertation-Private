@@ -3,11 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Set the directory path where the data is stored
-data_dir = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/AQ_daily"
+data_dir = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/AQ_daily/cleaned_air_quality.csv"
 
 # Define the pollutants and years
 pollutants = ["CO", "Ozone", "PM10", "PM25", "SO2"]
-years = ["2021", "2022", "2023", "2024"]
+years = ["2018", "2019", "2020", "2021", "2022", "2023", "2024"]
 
 # Function to load and combine data for each pollutant
 def load_pollutant_data(pollutant, years):
