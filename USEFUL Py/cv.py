@@ -8,11 +8,11 @@ copd_data = pd.read_csv('/Users/yangyangxiayule/Documents/GitHub/COPD-Project/fi
 # If necessary, rename the columns for consistency
 copd_data = copd_data.rename(columns={"copd%_age": "copd_age"})  # Rename copd column to remove % symbol later
 
-# Remove the '%' symbol and convert 'copd_age' column to numeric
-copd_data['copd_age'] = copd_data['copd_age'].str.replace('%', '').astype(float)
+copd_data['copd_age'] = copd_data['copd_age'].astype(str).str.replace('%', '').astype(float)
 
 # Merge the three dataframes based on 'County' and 'Year'
 merged_data = pd.merge(demographic_data, copd_data, on=["County", "Year"], how="inner")
+merged_data = merged_data.drop(columns=['Unnamed: 0.3', 'Unnamed: 0.2', 'Unnamed: 0.1', 'Unnamed: 0'], errors='ignore')
 
 
 # Display the merged dataframe

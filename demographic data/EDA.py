@@ -1,46 +1,34 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
 
 # Load the merged dataset
-input_file = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/demographic data/merged_wv_counties.csv"
+input_file = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/final data/demographic_data.csv"
 df = pd.read_csv(input_file)
 
-# Define the correct column order
-column_order = ['County'] + \
-               sorted([col for col in df.columns if 'income' in col]) + \
-               sorted([col for col in df.columns if 'healthcare' in col]) + \
-               sorted([col for col in df.columns if 'smoking' in col])
+# Debugging: Check column names
+print("Columns before processing:", df.columns)
 
-# Reorder the dataframe
-df = df[column_order]
+# Convert to long format correctly
+df_long = df.melt(id_vars=['County', 'Year'], var_name='Metric', value_name='Value')
 
-# Save the reordered file
-output_file = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/demographic data/merged_wv_counties_reordered.csv"
-df.to_csv(output_file, index=False)
-print(f"Reordered data saved to {output_file}")
-
-# Convert to long format for easier plotting
-df_long = df.melt(id_vars=['County'], var_name='Metric_Year', value_name='Value')
-df_long[['Metric', 'Year']] = df_long['Metric_Year'].str.rsplit('_', n=1, expand=True)
-df_long['Year'] = df_long['Year'].astype(int)
-
+# Debugging: Check first few rows after melt
+print(df_long.head())
 
 # --- Annual Trends (Per County) ---
 def plot_annual_trends_per_county():
     metrics = ['income', 'healthcare', 'smoking']
     for metric in metrics:
         plt.figure(figsize=(12, 6))
-        counties = df['County'].unique()
-        for county in counties:
+        avg_value = df_long[df_long['Metric'] == metric]['Value'].mean()  # Calculate average value for metric
+        for county in df['County'].unique():
             county_data = df_long[(df_long['County'] == county) & (df_long['Metric'] == metric)]
-            color = 'gray'
-            if county_data['Value'].diff().sum() < 0:
-                color = 'red' if metric != 'income' else 'blue'
-            if county_data['Value'].mean() > df_long[df_long['Metric'] == metric]['Value'].mean():
-                color = 'darkred'
-            plt.plot(county_data['Year'], county_data['Value'], label=county if len(counties) <= 10 else "", color=color, alpha=0.7)
+            county_mean = county_data['Value'].mean()
+            if abs(county_mean - avg_value) > (avg_value * 0.2):  # Show counties with > 20% deviation
+                plt.plot(county_data['Year'], county_data['Value'], label=county, alpha=0.7)
+            else:
+                # Use more transparent colors for other counties
+                plt.plot(county_data['Year'], county_data['Value'], alpha=0.2)
         plt.title(f'Annual Trends of {metric.capitalize()} in All Counties')
         plt.xlabel('Year')
         plt.ylabel(f'{metric.capitalize()} Value')
@@ -48,21 +36,23 @@ def plot_annual_trends_per_county():
         plt.show()
 
 # --- Spatial Variation (Ordered Histograms) ---
-def plot_spatial_variation(year):
-    plt.figure(figsize=(15, 5))
-    for i, metric in enumerate(['income', 'healthcare', 'smoking']):
-        plt.subplot(1, 3, i + 1)
-        sorted_df = df.sort_values(by=f'{metric}_{year}', ascending=False)
-        sns.barplot(data=sorted_df, x='County', y=f'{metric}_{year}', palette='coolwarm')
-        plt.xticks(rotation=90)
-        plt.title(f'{metric.capitalize()} in {year}')
-    plt.tight_layout()
-    plt.show()
+def plot_spatial_variation():
+    metrics = ['income', 'healthcare', 'smoking']
+    for metric in metrics:
+        # Use df_long instead of df to access the Metric column
+        avg_data = df_long[df_long['Metric'] == metric].groupby('County')[['Value']].mean().reset_index()  # Average across years 2018-2024
+        plt.figure(figsize=(8, 10))
+        sorted_df = avg_data.sort_values(by='Value', ascending=False)
+        sns.barplot(data=sorted_df, y='County', x='Value', palette='coolwarm', orient='h')
+        plt.xlabel(f'{metric.capitalize()} Value')
+        plt.ylabel('County')
+        plt.title(f'Average {metric.capitalize()} (2018-2024)')
+        plt.show()
 
-# --- Correlation Analysis (Selective Columns) ---
+
+# --- Correlation Analysis ---
 def plot_correlation():
-    selected_columns = [col for col in df.columns if any(metric in col for metric in ['income', 'healthcare', 'smoking'])]
-    correlation_matrix = df[selected_columns].corr()
+    correlation_matrix = df[['income', 'healthcare', 'smoking']].corr()
     plt.figure(figsize=(12, 8))
     sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f', linewidths=0.5)
     plt.title('Correlation Matrix of Key Metrics (2018-2024)')
@@ -70,17 +60,16 @@ def plot_correlation():
 
 # --- Additional Exploratory Analysis ---
 def additional_analysis():
-    # Distribution of values
-    plt.figure(figsize=(12, 5))
+    # Separate distribution plots for each metric
     for metric in ['income', 'healthcare', 'smoking']:
-        plt.hist(df_long[df_long['Metric'] == metric]['Value'], bins=30, alpha=0.5, label=metric)
-    plt.legend()
-    plt.title('Distribution of Income, Healthcare, and Smoking Values')
-    plt.xlabel('Value')
-    plt.ylabel('Frequency')
-    plt.show()
+        plt.figure(figsize=(12, 5))
+        sns.histplot(df_long[df_long['Metric'] == metric]['Value'], bins=30, kde=True, alpha=0.7)
+        plt.title(f'Distribution of {metric.capitalize()}')
+        plt.xlabel(f'{metric.capitalize()} Value')
+        plt.ylabel('Frequency')
+        plt.show()
     
-    # Boxplots for outlier detection
+    # Boxplot for outlier analysis
     plt.figure(figsize=(12, 5))
     sns.boxplot(x='Metric', y='Value', data=df_long)
     plt.title('Boxplot of Metrics for Outlier Analysis')
@@ -88,6 +77,6 @@ def additional_analysis():
 
 # Execute analyses
 plot_annual_trends_per_county()
-plot_spatial_variation(2024)
+plot_spatial_variation()
 plot_correlation()
 additional_analysis()

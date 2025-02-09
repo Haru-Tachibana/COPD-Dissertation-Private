@@ -34,7 +34,9 @@ final_data = reshaped_data.pivot_table(index=['County', 'Year'],
                                        values='Value', 
                                        aggfunc='first').reset_index()
 
-# Set the output path
+final_data['healthcare'] = final_data['healthcare'].astype(str).str.rstrip('.0').str[:-1].astype(int)
+
+
 output_path = "/Users/yangyangxiayule/Documents/GitHub/COPD-Project/final data"
 
 # Save the final data to a CSV file
