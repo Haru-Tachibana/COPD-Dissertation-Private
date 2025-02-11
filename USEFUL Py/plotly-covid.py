@@ -4,7 +4,7 @@ import geopandas as gpd
 
 # Step 1: Define file paths
 geojson_path = '/Users/yangyangxiayule/Documents/GitHub/COPD-Project/final data/west-virginia-with-county-boundaries_1133.geojson'
-copd_data_path = '/Users/yangyangxiayule/Documents/GitHub/COPD-Project/average_copd_per_county.csv'
+copd_data_path = '/Users/yangyangxiayule/Documents/GitHub/COPD-Project/copd_predictions_2022_2024.csv'
 
 # Step 2: Load the GeoJSON and COPD data
 gdf = gpd.read_file(geojson_path)
@@ -18,7 +18,7 @@ fig1 = px.choropleth(
     merged_gdf,
     geojson=merged_gdf.geometry,
     locations=merged_gdf.index,
-    color="copd%_age",
+    color="predicted_copd_age",
     title="Average COPD Prevalence by County (2018-2021)",
     hover_name="County",
     color_continuous_scale="Reds"
