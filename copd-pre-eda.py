@@ -19,3 +19,9 @@ print(re_23)
 sort_24 = pre_2024.sort_values(by='predicted_copd_age', ascending=False)
 re_24 = sort_24.head(10)
 print(re_24)
+
+
+pre_noyear = pre.drop('Year', axis=1)
+pre_mean = pre_noyear.groupby('County').mean()
+mean_re = pre_mean.sort_values(by='predicted_copd_age', ascending=False).head(5)
+print(mean_re)
